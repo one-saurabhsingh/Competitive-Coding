@@ -34,23 +34,42 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int n,a,b,c,k, ans, rem;
-    cin>>n>>a>>b>>c;
-    int cnt = 0, sum= 0;
-    ans = 0;
-    for (int i = 0; i * a <= n; ++i)
+    int n=1,m=0;
+    string s, t;
+    cin>>n>>m;
+    vi v(n);
+    cin>>s>>t;
+    if (s == t || s == "01" || s == "10")
     {
-        for (int j = 0; i * a + j * b <= n; ++j)
-        {
-            rem = n - i * a - j * b;
-            if (rem % c == 0)
-            {
-                k = rem / c;
-                ans = max(ans, i + j + k);
-            }
+        cout << "NO" << endl;
+        return;
+    }
+    int cnt11 = 0, cnt10 = 0, cnt01 = 0, cnt00 = 0;
+    fr(i, n){
+        if(s[i] == '1'){
+            cnt11++;
+        }else{
+            cnt10++;
         }
     }
-    cout << ans << endl;
+    fr(i, n)
+    {
+        if (t[i] == '1')
+        {
+            cnt01++;
+        }
+        else
+        {
+            cnt00++;
+        }
+    }
+    if((cnt11 == cnt01 && cnt10 == cnt00 ) && (min(cnt11 + cnt10, cnt01 + cnt00) <= 2*m)){
+        cout<<"YES"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
+    
 }
 
 int32_t main()
@@ -60,7 +79,7 @@ int32_t main()
  cin.tie(NULL);
 
     int T = 1;
-   // cin >> T;
+    cin >> T;
     while (T--)
     {
         saurabh();

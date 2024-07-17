@@ -34,23 +34,27 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int n,a,b,c,k, ans, rem;
-    cin>>n>>a>>b>>c;
-    int cnt = 0, sum= 0;
-    ans = 0;
-    for (int i = 0; i * a <= n; ++i)
-    {
-        for (int j = 0; i * a + j * b <= n; ++j)
-        {
-            rem = n - i * a - j * b;
-            if (rem % c == 0)
-            {
-                k = rem / c;
-                ans = max(ans, i + j + k);
-            }
+    int n=1,k=0;
+    cin>>n>>k;
+    k++;
+    vi v(n);
+    for(auto& it : v){
+        cin>>it;
+        int curr = 1;
+        while(it--){
+            curr*= 10;
         }
+        it = curr;
     }
-    cout << ans << endl;
+    long long ans = 0;
+    fr(i, n){
+        int cnt = k;
+        if(i+1<n) cnt = min(cnt, v[i+1]/v[i] -1);
+        ans += v[i]*1LL*cnt;
+        k-=cnt;
+    }
+    cout<<ans<<endl;
+    
 }
 
 int32_t main()
@@ -60,7 +64,7 @@ int32_t main()
  cin.tie(NULL);
 
     int T = 1;
-   // cin >> T;
+    cin >> T;
     while (T--)
     {
         saurabh();
