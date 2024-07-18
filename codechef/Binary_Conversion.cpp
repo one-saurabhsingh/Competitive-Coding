@@ -37,39 +37,33 @@ void saurabh(){
     int n=1,m=0;
     string s, t;
     cin>>n>>m;
-    vi v(n);
+    int cnt0=0, cnt1= 0;
     cin>>s>>t;
-    if (s == t || s == "01" || s == "10")
-    {
-        cout << "NO" << endl;
+    fr(i, n){
+        if(s[i] != t[i]){
+            if(s[i] == '1'){
+                cnt1++;
+            }
+            else{
+                cnt0++;
+            }
+        }
+    }
+    if(cnt0 != cnt1 || cnt0 > m){
+        cout<<"NO"<<endl;
         return;
     }
-    int cnt11 = 0, cnt10 = 0, cnt01 = 0, cnt00 = 0;
-    fr(i, n){
-        if(s[i] == '1'){
-            cnt11++;
-        }else{
-            cnt10++;
+    if(n==2){
+        if(cnt0 == 1 && m%2 == 0){
+            cout<<"NO"<<endl;
+            return;
+        }
+        if(s == t && s[0] != s[1] && m%2 == 1){
+            cout<<"NO"<<endl;
+            return;
         }
     }
-    fr(i, n)
-    {
-        if (t[i] == '1')
-        {
-            cnt01++;
-        }
-        else
-        {
-            cnt00++;
-        }
-    }
-    if((cnt11 == cnt01 && cnt10 == cnt00 ) && (min(cnt11 + cnt10, cnt01 + cnt00) <= 2*m)){
-        cout<<"YES"<<endl;
-    }
-    else{
-        cout<<"NO"<<endl;
-    }
-    
+    cout<<"YES"<<endl;
 }
 
 int32_t main()
