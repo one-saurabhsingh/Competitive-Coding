@@ -34,42 +34,63 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int n=1,m=0;
-  //  string s;
-    cin>>n;
-    vi v(n);
-    cin>>v;
-
-    int maxi = 0, sum = 0;
-    fr(i, n){
-        sum+=v[i];
-    }
+    int n=1, m= 0;
+    cin>>n>>m;
     unordered_map<int, int> ump;
+    vi v(n), q;
+    cin>>v;
+    srt(v);
+    q.push_back(v[0]);
 
-    fr(i, n){
+    ump[v[0]]++;
+
+    rep(i, 1, n-1){
         ump[v[i]]++;
-        if(ump[v[i]] >= 2){
-            if(v[i] > maxi) maxi = v[i];
+        if(v[i] != v[i-1]){
+            q.push_back(v[i]);
         }
-        v[i] = maxi;
     }
-    ump.clear();
 
-    fr(i, n) ump[v[i]]++;
+    int res = 0, s = q.size();
 
-    int prev = 0, doub = 0;
+    fr(i, s){
+        if ((s > i + 1) && (q[i + 1] == q[i] + 1))
+        {
+            int dic = ump[q[i]];
+            while(dic){
+                int z = q[i]*dic;
+                if(z > m){
+                    int multi = m/q[i];
+                    res = max(res, q[i]*multi);
+                    dic--;
+                    continue;
+                }
 
-    fr(i, n){
-        if(v[i] != prev){
-            sum += v[i];
-            if(ump[v[i]] == 1) sum += (n - i - 1)*doub;
-            else{
-                sum += (n-i-1)*v[i];
-                doub = v[i];
+                int glass = m - z;
+                int multi = glass/q[i+1];
+                if(multi > ump[q[i+1]]){
+                   z+= q[i+1]*ump[q[i+1]];
+                }else{
+                    z+=q[i+1]*multi;
+                }
+                res = max(res, z);
+                dic--;
             }
         }
+        else
+        {
+            int o = m/q[i];
+            int a = 0;
+            if(o > ump[q[i]]){
+                a=q[i]*ump[q[i]];
+            }else{
+                a=q[i]*o;
+            }
+            res = max(res, a);
+        }
     }
-    cout << sum << endl;
+    cout<<res;
+    nl;
 }
 
 int32_t main()

@@ -34,42 +34,41 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int n=1,m=0;
-  //  string s;
-    cin>>n;
-    vi v(n);
-    cin>>v;
+    int n=1,k=0;
+    string s;
+    cin>>n>>k;
 
-    int maxi = 0, sum = 0;
-    fr(i, n){
-        sum+=v[i];
+    if(k == 0){
+        cout<<0<<endl;
+        return;
     }
-    unordered_map<int, int> ump;
-
-    fr(i, n){
-        ump[v[i]]++;
-        if(ump[v[i]] >= 2){
-            if(v[i] > maxi) maxi = v[i];
-        }
-        v[i] = maxi;
+    
+    if(k <= n){
+        cout<<1<<endl;
+        return;
     }
-    ump.clear();
+    else{
+        k -= n;
+        int x = 1, y = n-1;
+        
+        while(k > 0){
+            
+            k -= y;
+            x++;
 
-    fr(i, n) ump[v[i]]++;
-
-    int prev = 0, doub = 0;
-
-    fr(i, n){
-        if(v[i] != prev){
-            sum += v[i];
-            if(ump[v[i]] == 1) sum += (n - i - 1)*doub;
-            else{
-                sum += (n-i-1)*v[i];
-                doub = v[i];
+            if(k > 0){
+                x++;
+                k-=y;
             }
+        y--;
         }
+        cout<< x;
+        nl;
+
     }
-    cout << sum << endl;
+
+
+    
 }
 
 int32_t main()
