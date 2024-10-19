@@ -34,14 +34,32 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int k=1,n=0;
+    int n=1,m=0;
     string s;
-    cin>>k>>n;
-    vi v(k);
+    cin>>n;
+    vi v(n);
     cin>>v;
-
-    
-    
+    if (n == 1)
+    {
+        cout << 1;
+        nl;
+        return;
+    }
+    int cnt = 0;
+    rep(i, 1, n-1){
+        if(v[i-1] > v[i] && m != 1){
+            cnt++;
+            m = 1;
+        }
+        else if (v[i - 1] < v[i] && m != -1)
+        {
+            cnt++;
+            m = -1;
+        }
+    }
+    cout<< cnt+1;
+    nl;
+    return;
 }
 
 int32_t main()

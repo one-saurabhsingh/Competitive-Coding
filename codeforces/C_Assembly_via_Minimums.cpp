@@ -34,13 +34,26 @@ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a)
 
 
 void saurabh(){
-    int k=1,n=0;
+    int n=1,m=0;
     string s;
-    cin>>k>>n;
-    vi v(k);
+    cin>>n;
+    m = n*(n-1)/2;
+    vi v(m);
     cin>>v;
+    srt(v);
+    vi ans;
+    if(n==2){
+        cout<< v[0]<<" "<<v[0];
+        nl;
+        return;
+    }
 
-    
+    for(int i=0; i<m; i+=(--n)){
+        cout<<v[i]<<" ";
+    }
+    cout<<"1000000000";
+    nl;
+    return;
     
 }
 
